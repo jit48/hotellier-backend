@@ -114,7 +114,7 @@ public class AdminController {
         return ResponseEntity.ok(pickupDropService.updateRequestStatus(id, status, adminNotes));
     }
 
-    @PostMapping
+    @PostMapping("/create-menu-item")
     public ResponseEntity<MenuItemDTO> createMenuItem(@Valid @RequestBody MenuItemDTO request) {
         MenuItemDTO response = menuService.createMenuItem(request);
         return ResponseEntity.ok(response);

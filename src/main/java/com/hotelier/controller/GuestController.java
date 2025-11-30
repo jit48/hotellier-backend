@@ -26,6 +26,9 @@ public class GuestController {
     @Autowired
     private PickupDropService pickupDropService;
 
+    @Autowired
+    private MenuService menuService;
+
     // Hotel Info
     @GetMapping("/hotel-info")
     public ResponseEntity<HotelInfoDTO> getHotelInfo() {
@@ -90,6 +93,12 @@ public class GuestController {
     @GetMapping("/pickup-drop/{id}")
     public ResponseEntity<PickupDropDTO> getPickupDropById(@PathVariable Long id) {
         return ResponseEntity.ok(pickupDropService.getRequestById(id));
+    }
+
+    @GetMapping("/get-menu-items")
+    public ResponseEntity<List<MenuItemDTO>> getAllMenuItems() {
+        List<MenuItemDTO> items = menuService.getAllMenuItems();
+        return ResponseEntity.ok(items);
     }
 }
 

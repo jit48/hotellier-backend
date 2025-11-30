@@ -34,7 +34,7 @@ public class GuestController {
 
     // Food Orders
     @PostMapping("/food-orders")
-    public ResponseEntity<FoodOrderDTO> createFoodOrder(
+    public ResponseEntity<FoodOrderRequest> createFoodOrder(
             Authentication authentication,
             @Valid @RequestBody FoodOrderRequest request) {
         String email = authentication.getName();

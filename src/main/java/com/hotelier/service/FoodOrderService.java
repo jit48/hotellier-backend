@@ -20,21 +20,21 @@ public class FoodOrderService {
     @Autowired
     private UserRepository userRepository;
 
-    public FoodOrderDTO createOrder(String userEmail, FoodOrderRequest request) {
+    public FoodOrderRequest createOrder(String userEmail, FoodOrderRequest request) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        FoodOrder order = new FoodOrder();
-        order.setUser(user);
-        order.setItem(request.getItem());
-        order.setDescription(request.getDescription());
-        order.setQuantity(request.getQuantity());
-        order.setSpecialInstructions(request.getSpecialInstructions());
-        order.setRoomNumber(request.getRoomNumber() != null ? request.getRoomNumber() : user.getRoomNumber());
-        order.setStatus(FoodOrder.OrderStatus.PENDING);
-
-        order = foodOrderRepository.save(order);
-        return convertToDTO(order);
+        request.getFoodOrderDetailsDTOList().stream().forEach(details -> {
+            FoodOrder order = new FoodOrder();
+            order.setUser(user);
+            order.setItemId(details.getItemId());
+            order.setQuantity(details.getQuantity());
+            order.setSpecialInstructions(details.getSpecialInstructions());
+            order.setRoomNumber(request.getRoomNumber() != null ? request.getRoomNumber() : user.getRoomNumber());
+            order.setStatus(FoodOrder.OrderStatus.PENDING);
+            order = foodOrderRepository.save(order);
+        });
+        return request;
     }
 
     public List<FoodOrderDTO> getUserOrders(String userEmail) {
@@ -83,7 +83,7 @@ public class FoodOrderService {
         dto.setUserId(order.getUser().getId());
         dto.setUserEmail(order.getUser().getEmail());
         dto.setUserName(order.getUser().getName());
-        dto.setItem(order.getItem());
+//        dto.setItemId(order.getItemId());
         dto.setDescription(order.getDescription());
         dto.setQuantity(order.getQuantity());
         dto.setSpecialInstructions(order.getSpecialInstructions());

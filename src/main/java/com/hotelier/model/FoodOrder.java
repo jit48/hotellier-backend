@@ -22,7 +22,7 @@ public class FoodOrder {
     private User user;
 
     @Column(nullable = false)
-    private String item;
+    private Long itemId;
 
     @Column(columnDefinition = "TEXT")
     private String description;

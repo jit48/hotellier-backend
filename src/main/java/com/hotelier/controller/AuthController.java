@@ -31,14 +31,14 @@ public class AuthController {
     }
 
     @PostMapping("/passwordlessRegister")
-    public ResponseEntity<Void> passwordlessRegister(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthResponse> passwordlessRegister(@Valid @RequestBody RegisterRequest request) {
         log.info("Passwordless registration attempt for email: {}", request.getEmail());
-        userService.passwordlessRegister(request);
+        AuthResponse response = userService.passwordlessRegister(request);
         log.info("Passwordless registration email sent to: {}", request.getEmail());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/passwordlessLogin")
+    @PostMapping("/passwordlessLogin")
     public ResponseEntity<AuthResponse> magicLogin(@RequestParam("token") String token) {
         AuthResponse response = userService.loginWithMagicToken(token);
         return ResponseEntity.ok(response);

@@ -43,8 +43,8 @@ public class PickupDrop {
     @Column(name = "special_instructions", columnDefinition = "TEXT")
     private String specialInstructions;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RequestStatus status;
 
     @Column(name = "room_number")

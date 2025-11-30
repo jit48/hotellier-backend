@@ -29,6 +29,9 @@ public class AdminController {
     @Autowired
     private PickupDropService pickupDropService;
 
+    @Autowired
+    private MenuService menuService;
+
     // Hotel Info Management
     @GetMapping("/hotel-info")
     public ResponseEntity<HotelInfoDTO> getHotelInfo() {
@@ -109,6 +112,12 @@ public class AdminController {
         PickupDrop.RequestStatus status = PickupDrop.RequestStatus.valueOf(request.get("status"));
         String adminNotes = request.get("adminNotes");
         return ResponseEntity.ok(pickupDropService.updateRequestStatus(id, status, adminNotes));
+    }
+
+    @PostMapping
+    public ResponseEntity<MenuItemDTO> createMenuItem(@Valid @RequestBody MenuItemDTO request) {
+        MenuItemDTO response = menuService.createMenuItem(request);
+        return ResponseEntity.ok(response);
     }
 }
 

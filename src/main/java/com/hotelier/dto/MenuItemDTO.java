@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class MenuItemDTO {
 
+    private Long id;
     @NotBlank(message = "Name is required")
     private String name;
 

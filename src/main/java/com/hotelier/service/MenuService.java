@@ -6,6 +6,9 @@ import com.hotelier.repository.MenuItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class MenuService {
 
@@ -37,6 +40,7 @@ public class MenuService {
 
     private MenuItemDTO toResponse(MenuItem menuItem) {
         return new MenuItemDTO(
+                menuItem.getId(),
                 menuItem.getName(),
                 menuItem.getDescription(),
                 menuItem.getPrice(),
@@ -45,5 +49,15 @@ public class MenuService {
                 menuItem.getVegetarian()
         );
     }
+
+    public List<MenuItemDTO> getAllMenuItems() {
+
+        List<MenuItem> menuItems = menuItemRepository.findAll();
+
+        return menuItems.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
 }
 

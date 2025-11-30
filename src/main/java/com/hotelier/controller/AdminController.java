@@ -119,5 +119,11 @@ public class AdminController {
         MenuItemDTO response = menuService.createMenuItem(request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/get-menu-items")
+    public ResponseEntity<List<MenuItemDTO>> getAllMenuItems() {
+        List<MenuItemDTO> items = menuService.getAllMenuItems();
+        return ResponseEntity.ok(items);
+    }
 }
 

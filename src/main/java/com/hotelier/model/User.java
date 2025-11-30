@@ -42,6 +42,12 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "magic_login_token")
+    private String magicLoginToken;
+
+    @Column(name = "magic_login_token_expiry")
+    private LocalDateTime magicLoginTokenExpiry;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
